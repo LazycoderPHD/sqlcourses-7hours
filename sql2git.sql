@@ -1,4 +1,4 @@
-/* Generate a report showing the total sales for each category:
+﻿/* Generate a report showing the total sales for each category:
 High: If the sales are higher than 50
 Medium: If the sales between 20 and 50
 Low: If the sales equal or lower than 20
@@ -23,12 +23,17 @@ order by totalSales asc
 
 -- Retrive employee details with gender displayed as full text
 
-select EmployeeID,
-	FirstName + ' ' + coalesce(LastName, '') as [FullName],
-	Gender,
-case when gender = 'M' then 'Male'
-	 when gender = 'F' then 'Female'
-ELSE 'Unknow gender'
-END [Full text gender]
-from sales.Employees
-Order by Gender
+SELECT 
+    EmployeeID,
+    FirstName + ' ' + COALESCE(LastName, '') AS [FullName],
+    Gender,
+    -- Cột hiển thị chữ Male/Female
+    CASE 
+        WHEN Gender = 'M' THEN 'Male'
+        WHEN Gender = 'F' THEN 'Female'
+        ELSE 'Unknown gender'
+    END AS [Full text gender],
+    -- Cột dùng Partition để đếm số lượng Nam/Nữ
+    COUNT(Gender) OVER(PARTITION BY Gender) AS [total by gender]
+FROM Sales.Employees
+ORDER BY Gender
