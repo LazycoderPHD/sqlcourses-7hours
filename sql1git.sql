@@ -11,3 +11,11 @@ select
 	
 from sales.orders
 order by sales,
+
+--Identify the customers who have no scores
+
+select
+	Firstname + ' ' + coalesce(Lastname, '') as [FullName],
+	score
+from sales.Customers
+where score is null
