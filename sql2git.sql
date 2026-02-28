@@ -37,3 +37,19 @@ SELECT
     COUNT(Gender) OVER(PARTITION BY Gender) AS [total by gender]
 FROM Sales.Employees
 ORDER BY Gender
+
+--Retrieve customers details with abbreviated country code
+
+select
+	CustomerID,
+	FirstName,
+	LastName,
+	Country,
+case when country = 'USA' then 'US'
+	 when country = 'Germany' then 'DE'
+else 'n/a'
+end as [abbreviated country]
+from sales.Customers
+
+select distinct country
+from sales.Customers
