@@ -20,3 +20,15 @@ from(
 ) as temp
 group by Category
 order by totalSales asc
+
+-- Retrive employee details with gender displayed as full text
+
+select EmployeeID,
+	FirstName + ' ' + coalesce(LastName, '') as [FullName],
+	Gender,
+case when gender = 'M' then 'Male'
+	 when gender = 'F' then 'Female'
+ELSE 'Unknow gender'
+END [Full text gender]
+from sales.Employees
+Order by Gender
