@@ -53,3 +53,12 @@ from sales.Customers
 
 select distinct country
 from sales.Customers
+
+--Find the average scores of customers and treat NULLS as 0
+--Additionally provide details such as customerID and lastname
+select
+	CustomerID,
+	LastName,
+	Score,
+	Avg(score) over() as [Average score]
+from sales.Customers
