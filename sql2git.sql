@@ -60,5 +60,15 @@ select
 	CustomerID,
 	LastName,
 	Score,
+case when score is null then 0
+	else score
+end as [clean score],
+
+avg(coalesce(score,0)) over() [avg with coalesce],
+
+avg(case when score is null then 0
+	else score
+end) over() as avgcustomerclean,
 	Avg(score) over() as [Average score]
 from sales.Customers
+
