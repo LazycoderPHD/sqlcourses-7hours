@@ -72,3 +72,25 @@ end) over() as avgcustomerclean,
 	Avg(score) over() as [Average score]
 from sales.Customers
 
+--Count how many times each customer has made an order with sales greater than 30
+
+select
+	OrderID,
+	CustomerID,
+	Sales,
+	case when sales > 30 then 1
+	else 0
+	end as [SalesFlag]
+from sales.Orders
+Order by customerID
+
+--NO orderId,sales for group by
+select
+	CustomerID,
+	count(*) [TotalOrders],
+
+	sum(case when sales > 30 then 1
+	else 0
+	end) as [TotalOrders>30]
+from sales.Orders
+group by customerID
