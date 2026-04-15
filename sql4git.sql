@@ -46,3 +46,5 @@ from sales.Orders
 select orderdate, sales,
 rank() over(order by sales desc) Ranksales
 from sales.Orders
+
+--============WINDOW FUNCTION: WINDOW FRAME (ROWS UNBOUNDED PRECEDING)=================
