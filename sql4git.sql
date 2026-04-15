@@ -1,3 +1,5 @@
+--=================WINDOW FUNCTION: PARTITION BY======================
+
 --find the total sales across all orders
 select sum (sales) as [total sales] from sales.Orders
 
@@ -36,3 +38,8 @@ sum(sales) over() totalsales,
 sum(sales) over(partition by productID) [totalsalesbyproducts],
 sum(sales) over(partition by productid ,orderstatus) [totalsalesbyproductsandstatus]
 from sales.Orders
+
+--============WINDOW FUNCTION: ORDER BY=================
+-- Rank each order based on their sales from highest to lowest
+-- Additionally provide details such order Id, order date
+
