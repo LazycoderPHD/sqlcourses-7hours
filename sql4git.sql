@@ -43,3 +43,6 @@ from sales.Orders
 -- Rank each order based on their sales from highest to lowest
 -- Additionally provide details such order Id, order date
 
+select orderdate, sales,
+rank() over(order by sales desc) Ranksales
+from sales.Orders
