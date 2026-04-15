@@ -14,4 +14,15 @@ select productID, sum (sales) over(partition by productID) as [total_sales] from
 select OrderDate,productID, orderID, sum (sales) over(partition by productID) as [total_sales] from sales.Orders
 select OrderDate,productID, orderID, sum (sales) over(partition by orderID) as [total_sales] from sales.Orders
 
+--Find the total sales across all orders, additionally provide details such order id & order date
+select OrderID, OrderDate, sales, sum(sales) over() [totalsales]
+from sales.Orders
+
+--Find the total sales for each product, additionally provide details such order id & order date
+select ProductID,OrderID, OrderDate, sales, sum(sales) over(partition by productID) [totalsales]
+from sales.Orders
+
+select * from sales.Orders
+
+--Find the total sales across all orders, find the total sales for each product, additionally provide details such order id & order date
 
