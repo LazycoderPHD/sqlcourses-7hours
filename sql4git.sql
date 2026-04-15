@@ -48,3 +48,18 @@ rank() over(order by sales desc) Ranksales
 from sales.Orders
 
 --============WINDOW FUNCTION: WINDOW FRAME (ROWS UNBOUNDED PRECEDING)=================
+select orderid, orderdate, orderstatus, sales,
+sum(sales) over(partition by orderstatus order by orderdate
+rows between current row and 2 following) [totalsales current, row + 2]
+from sales.Orders
+
+/* ==================== COMPACT FRAME =======================
+
+For only PRECEDING, the CURRENT ROW can be skipped
+NORMAL FORM ROWS BETWEEN CURRENT ROW AND 2 FOLLOWING
+SHORT FORM ROWS 2 FOLLOWING */
+
+select orderid, orderdate, orderstatus, sales,
+sum(sales) over(partition by orderstatus order by orderdate
+rows between 2 preceding and current row) [totalsales row - 2, current]
+from sales.Orders
