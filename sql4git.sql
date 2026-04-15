@@ -25,4 +25,14 @@ from sales.Orders
 select * from sales.Orders
 
 --Find the total sales across all orders, find the total sales for each product, additionally provide details such order id & order date
+select ProductID,OrderID, OrderDate, Sales,
+sum(sales) over() totalsales,
+sum(sales) over(partition by productID) [totalsalesbyproducts]
+from sales.Orders
 
+--Find the total sales across all orders, find the total sales for each product, find the total sales for each combination of product and order status, additionally provide details such order id & order date
+select ProductID, OrderID, OrderDate, orderstatus, Sales,
+sum(sales) over() totalsales,
+sum(sales) over(partition by productID) [totalsalesbyproducts],
+sum(sales) over(partition by productid ,orderstatus) [totalsalesbyproductsandstatus]
+from sales.Orders
