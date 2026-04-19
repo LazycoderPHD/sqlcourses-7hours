@@ -75,3 +75,23 @@ select o.customerID, coalesce(firstname, '') + ' ' + coalesce(lastname, '') [ful
 from sales.Orders o
 join sales.Customers c on c.CustomerID = o.CustomerID 
 group by o.customerID, coalesce(firstname, '') + ' ' + coalesce(lastname, '')
+
+--Find the total amount of orders
+
+select count(orderID) [TotalOrders] from sales.Orders
+
+--Find the total amount of orders
+--Additionally provide details such order Id, order date
+
+select count(orderID) over() [TotalOrders], orderID, orderDate from sales.Orders
+--group by orderID, OrderDate
+
+--Find the total amount of orders
+--Find the total number of Orders for each customers
+--Additionally provide details such order Id, order date
+select o.customerID,
+coalesce(firstname, '') + ' ' + coalesce(lastname, '') [fullname],
+count(orderID) over(partition by o.customerID) [TotalOrdersbyCustomers],
+count(orderID) over() [TotalOrders], orderID, orderDate
+from sales.Orders o
+join sales.Customers c on c.CustomerID = o.CustomerID
